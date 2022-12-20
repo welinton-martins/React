@@ -19,9 +19,17 @@ React.Component {
 			{ onClick: () => 
 			this.setState({ liked: true }) },
 			'Like'
-			);
+			)		;
 	}
 }
-const domContainer = document.querySelector('#like_button_container');
-const root = ReactDOM.createRoot(domContainer);
-root.render(e(LikeButton));
+	
+// Find all DOM containers, and render Like buttons into them.
+document.querySelectorAll('.like_button_container')
+	.forEach(domContainer => {
+		// Read the comment ID from a data-* attribute
+		const commentID = parseInt(domContainer.dataset.commentid, 10);
+		const root = ReactDOM.createRoot(domContainer);
+		root.render(
+			e(LikeButton, { commentID: commentID })
+		);
+	});
